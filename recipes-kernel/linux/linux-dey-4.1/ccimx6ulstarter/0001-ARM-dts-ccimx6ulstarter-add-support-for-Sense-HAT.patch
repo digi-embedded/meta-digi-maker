@@ -1,0 +1,33 @@
+From: Pedro Perez de Heredia <pedro.perez@digi.com>
+Date: Thu, 31 Aug 2017 19:22:52 +0200
+Subject: [PATCH] ARM: dts: ccimx6ulstarter: add support for Sense HAT
+
+Device tree configuration for the Sense HAT board, on the ConnectCore 6UL
+SBC Express.
+
+https://www.raspberrypi.org/products/sense-hat/
+
+Signed-off-by: Pedro Perez de Heredia <pedro.perez@digi.com>
+---
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+index aad2fd7a7e11..4784ed660aa8 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+@@ -84,6 +84,14 @@
+ /* I2C2 (Raspberry PI Expansion header and Grove connector) */
+ &i2c2 {
+ 	status = "okay";
++	rpi-sense@46 {
++		reg = <0x46>;
++		compatible = "rpi,rpi-sense";
++		keys-int-gpios = <&gpio3 12 1>;
++		interrupt-parent = <&gpio3>;
++		interrupts = <12 IRQ_TYPE_EDGE_RISING>;
++		status = "okay";
++	};
+ };
+ 
+ /* MCA IO0 connected to Grove ADC connector */
