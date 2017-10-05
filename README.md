@@ -7,6 +7,7 @@ and Yocto Digi's BSP layers.
 This layer depends on the following layers:
 
 https://github.com/digi-embedded/meta-digi
+https://git.yoctoproject.org/cgit.cgi/meta-raspberrypi/
 
 License
 -------
