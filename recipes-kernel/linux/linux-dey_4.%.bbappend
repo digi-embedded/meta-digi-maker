@@ -1,6 +1,6 @@
 # Copyright (C) 2017 Digi International Inc.
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${BP}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${BPN}:"
 
 SRC_URI_append_ccimx6ulstarter = " \
     ${@base_conditional('RPI_SENSEHAT_ENABLED', '1', ' file://0001-ARM-dts-ccimx6ulstarter-add-support-for-Sense-HAT.patch', '', d)} \
