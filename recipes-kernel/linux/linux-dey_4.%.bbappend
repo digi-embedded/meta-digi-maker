@@ -3,7 +3,11 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${BPN}:"
 
 SRC_URI_append_ccimx6ulstarter = " \
-    ${@base_conditional('RPI_SENSEHAT_ENABLED', '1', ' file://0001-ARM-dts-ccimx6ulstarter-add-support-for-Sense-HAT.patch', '', d)} \
+    ${@base_conditional('RPI_SENSEHAT_ENABLED', '1', 'file://0001-ARM-dts-ccimx6ulstarter-add-support-for-Sense-HAT.patch', '', d)} \
+"
+
+SRC_URI_append_ccimx8x-sbc-express = " \
+    ${@base_conditional('RPI_SENSEHAT_ENABLED', '1', 'file://0001-ARM-dts-ccimx8x-sbc-express-Add-support-for-Sense-Ha.patch', '', d)} \
 "
 
 #

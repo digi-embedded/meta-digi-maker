@@ -1,0 +1,53 @@
+From 5ed1366106cb166f75b2bc9283ae48d2d1d12849 Mon Sep 17 00:00:00 2001
+From: Cameron Haegle <cameronh@digi.com>
+Date: Tue, 23 Oct 2018 13:20:51 -0500
+Subject: [PATCH] ARM dts ccimx8x-sbc-express Add support for Sense Hat
+
+---
+ arch/arm64/boot/dts/digi/ccimx8x-sbc-express-wb.dts | 9 +++++++++
+ arch/arm64/boot/dts/digi/ccimx8x-sbc-express.dts    | 9 +++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/digi/ccimx8x-sbc-express-wb.dts b/arch/arm64/boot/dts/digi/ccimx8x-sbc-express-wb.dts
+index b89dd30..973a774 100644
+--- a/arch/arm64/boot/dts/digi/ccimx8x-sbc-express-wb.dts
++++ b/arch/arm64/boot/dts/digi/ccimx8x-sbc-express-wb.dts
+@@ -107,6 +107,15 @@
+ /* I2C2 available on Raspberry Pi expansion header */
+ &i2c2 {
+ 	status = "okay";
++
++        rpi-sense@46 {
++               reg = <0x46>;
++               compatible = "rpi,rpi-sense";
++               keys-int-gpios = <&gpio1 30 1>;
++               interrupt-parent = <&gpio1>;
++               interrupts = <30 IRQ_TYPE_EDGE_RISING>;
++               status = "okay";
++       };
+ };
+ 
+ /* I2C3 available on Raspberry Pi expansion header */
+diff --git a/arch/arm64/boot/dts/digi/ccimx8x-sbc-express.dts b/arch/arm64/boot/dts/digi/ccimx8x-sbc-express.dts
+index 6253fc5..ede69b9 100644
+--- a/arch/arm64/boot/dts/digi/ccimx8x-sbc-express.dts
++++ b/arch/arm64/boot/dts/digi/ccimx8x-sbc-express.dts
+@@ -107,6 +107,15 @@
+ /* I2C2 available on Raspberry Pi expansion header */
+ &i2c2 {
+ 	status = "okay";
++
++        rpi-sense@46 {
++               reg = <0x46>;
++               compatible = "rpi,rpi-sense";
++               keys-int-gpios = <&gpio1 30 1>;
++               interrupt-parent = <&gpio1>;
++               interrupts = <30 IRQ_TYPE_EDGE_RISING>;
++               status = "okay";
++       };
+ };
+ 
+ /* I2C3 available on Raspberry Pi expansion header */
+-- 
+2.7.4
+
