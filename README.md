@@ -27,12 +27,12 @@ Installation
    Digi Embedded Yocto sources directory
 
         #> cd <DEY-INSTALLDIR>/sources
-        #> git clone git://git.yoctoproject.org/meta-raspberrypi.git -b morty
-        #> git clone https://github.com/digi-embedded/meta-digi-maker.git -b morty
+        #> git clone git://git.yoctoproject.org/meta-raspberrypi.git -b rocko
+        #> git clone https://github.com/digi-embedded/meta-digi-maker.git -b rocko
 
     The following git revisions were validated by Digi:
 
-      * meta-raspberrypi: 2a192261a914892019f4f428d7462bb3c585ebac
+      * meta-raspberrypi: 8e4c537d84fdde8e3b4642d0dda2c0f4af76d52f
 
 
 Create and build a project
