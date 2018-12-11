@@ -1,0 +1,31 @@
+From 7e10469c92431d1e849083a2070e398afbdae716 Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Fri, 7 Dec 2018 17:31:42 +0100
+Subject: [PATCH] ARM: dts: ccimx6ulstarter: Add support for Adafruit PiTFTP
+ Hat
+
+This adds support for the following hat:
+https://www.adafruit.com/product/2315
+
+Signed-off-by: Alfonso Martin <amartrey@digi.com>
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+index 7b65cfffa3e3..382c21ed8cf2 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+@@ -219,6 +219,11 @@
+ 			fsl,pins = <
+ 				/* GPIOs BANK 3 */
+ 				MX6UL_PAD_LCD_RESET__GPIO3_IO04		0xf030
++				/* Adafruit PiTFT GPIOs */
++				/* GPIO 18, pin 12 */
++				MX6UL_PAD_JTAG_TDI__GPIO1_IO13          0xf030
++				/* GPIO 25, pin 22 */
++				MX6UL_PAD_LCD_DATA08__GPIO3_IO13	0xf030
+ 			>;
+ 		};
+ 

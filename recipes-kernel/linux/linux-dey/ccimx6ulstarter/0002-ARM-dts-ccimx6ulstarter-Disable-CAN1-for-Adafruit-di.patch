@@ -1,0 +1,54 @@
+From 4ae202192d8b415d5102e794ab235bf9a5be87e6 Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Mon, 17 Dec 2018 15:45:53 +0100
+Subject: [PATCH] ARM: dts: ccimx6ulstarter: Disable CAN1 for Adafruit display
+ support
+
+The CAN1 interface muxes one of the pins used in the Adafruit displays.
+
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts | 2 +-
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    | 2 +-
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts       | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+index d0fd5b8bdf11..f2a284befd90 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+@@ -56,7 +56,7 @@
+ 
+ /* CAN1 (Raspberry PI Expansion header) */
+ &can1 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ /* I2C2 (Raspberry PI Expansion header and Grove connector) */
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+index d0fd5b8bdf11..f2a284befd90 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+@@ -56,7 +56,7 @@
+ 
+ /* CAN1 (Raspberry PI Expansion header) */
+ &can1 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ /* I2C2 (Raspberry PI Expansion header and Grove connector) */
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
+index 2a337fd4ad34..07653eb99ba9 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
+@@ -56,7 +56,7 @@
+ 
+ /* CAN1 (Raspberry PI Expansion header) */
+ &can1 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ /* I2C2 (Raspberry PI Expansion header and Grove connector) */

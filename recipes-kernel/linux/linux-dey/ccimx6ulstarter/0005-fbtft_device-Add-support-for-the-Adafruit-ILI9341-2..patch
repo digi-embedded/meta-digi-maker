@@ -1,0 +1,48 @@
+From ae457e59765b81467a08222f8acad3d0eaca5236 Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Mon, 17 Dec 2018 16:06:22 +0100
+Subject: [PATCH] fbtft_device: Add support for the Adafruit ILI9341 2.8" LCD
+ display
+
+According to the 2.8" LCD Hat schematics:
+https://learn.adafruit.com/assets/25554
+
+RPI pin  |  CC6UL expansion header pin  |  GPIO nr
+--------------------------------------------------
+GPIO25 |           22                 |   77
+
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ drivers/staging/fbtft/fbtft_device.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/staging/fbtft/fbtft_device.c b/drivers/staging/fbtft/fbtft_device.c
+index a8907ff675b5..97ae4d40ae4d 100644
+--- a/drivers/staging/fbtft/fbtft_device.c
++++ b/drivers/staging/fbtft/fbtft_device.c
+@@ -394,6 +394,25 @@ static struct fbtft_device_display displays[] = {
+ 			}
+ 		}
+ 	}, {
++		.name = "adafruit28_ccimx6ulstarter",
++		.spi = &(struct spi_board_info) {
++			.modalias = "fb_ili9341",
++			.max_speed_hz = 32000000,
++			.mode = SPI_MODE_0,
++			.chip_select = 0,
++			.platform_data = &(struct fbtft_platform_data) {
++				.display = {
++					.buswidth = 8,
++					.backlight = 1,
++				},
++				.bgr = true,
++				.gpios = (const struct fbtft_gpio []) {
++					{ "dc", 77 },
++					{},
++				},
++			}
++		}
++	}, {
+ 		.name = "adafruit13m",
+ 		.spi = &(struct spi_board_info) {
+ 			.modalias = "fb_ssd1306",

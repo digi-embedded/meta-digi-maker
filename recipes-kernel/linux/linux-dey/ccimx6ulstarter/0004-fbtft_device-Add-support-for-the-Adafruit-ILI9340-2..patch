@@ -1,0 +1,46 @@
+From 52db6cfd40c4f6a5bd92c06a4dbee4486598442f Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Tue, 11 Dec 2018 16:39:00 +0100
+Subject: [PATCH] fbtft_device: Add support for the Adafruit ILI9340 2.2" LCD
+ display
+
+    According to the 2.2" LCD Hat schematics:
+    https://learn.adafruit.com/assets/21903
+
+    RPI pin  |  CC6UL expansion header pin  |  GPIO nr
+    --------------------------------------------------
+      GPIO25 |           22                 |   77
+---
+ drivers/staging/fbtft/fbtft_device.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/staging/fbtft/fbtft_device.c b/drivers/staging/fbtft/fbtft_device.c
+index dba6e290e196..a8907ff675b5 100644
+--- a/drivers/staging/fbtft/fbtft_device.c
++++ b/drivers/staging/fbtft/fbtft_device.c
+@@ -355,6 +355,25 @@ static struct fbtft_device_display displays[] = {
+ 			}
+ 		}
+ 	}, {
++		.name = "adafruit22a_ccimx6ulstarter",
++		.spi = &(struct spi_board_info) {
++			.modalias = "fb_ili9340",
++			.max_speed_hz = 32000000,
++			.mode = SPI_MODE_0,
++			.chip_select = 0,
++			.platform_data = &(struct fbtft_platform_data) {
++				.display = {
++					.buswidth = 8,
++					.backlight = 1,
++				},
++				.bgr = true,
++				.gpios = (const struct fbtft_gpio []) {
++					{ "dc", 77 },
++					{},
++				},
++			}
++		}
++	}, {
+ 		.name = "adafruit28",
+ 		.spi = &(struct spi_board_info) {
+ 			.modalias = "fb_ili9341",

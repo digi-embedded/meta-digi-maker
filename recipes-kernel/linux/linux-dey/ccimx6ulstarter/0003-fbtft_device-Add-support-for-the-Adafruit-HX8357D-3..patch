@@ -1,0 +1,55 @@
+From 7af82dd23add72b064e21ffce63f158da0e61cac Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Tue, 11 Dec 2018 11:22:18 +0100
+Subject: [PATCH] fbtft_device: Add support for the Adafruit HX8357D 3.5" LCD
+ display
+
+According to the 3.5" LCD Hat schematics:
+https://learn.adafruit.com/assets/26348
+
+RPI pad      | Signal   |  CC6UL EH pin  |  CC6UL signal | GPIO nr
+-----------------------------------------------------------------
+  GPIO24     | RT_INT   |    18          |   LCD_DATA07  |  76
+  GPIO25     | TFT_DC   |    22          |   LCD_DATA08  |  77
+  GPIO18     | LCD_LITE |    12          |   JTAG_TDI    |  13
+  SPI_CE0    | TFT_CS   |    24          |   SPI3_SS0    |  N/A
+  SPI_MOSI   | MOSI     |    19          |   SPI3_MOSI   |  N/A
+  SPI_MISO   | MISO     |    21          |   SPI3_MISO   |  N/A
+  SPI_SCLK   | SCLK     |    23          |   SPI3_SCLK   |  N/A
+
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ drivers/staging/fbtft/fbtft_device.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/staging/fbtft/fbtft_device.c b/drivers/staging/fbtft/fbtft_device.c
+index e9211831b6a1..dba6e290e196 100644
+--- a/drivers/staging/fbtft/fbtft_device.c
++++ b/drivers/staging/fbtft/fbtft_device.c
+@@ -392,6 +392,26 @@ static struct fbtft_device_display displays[] = {
+ 			}
+ 		}
+ 	}, {
++		.name = "adafruit35_ccimx6ulstarter",
++		.spi = &(struct spi_board_info) {
++			.modalias = "fb_hx8357d",
++			.max_speed_hz = 16000000,
++			.mode = SPI_MODE_0,
++			.chip_select = 0,
++			.platform_data = &(struct fbtft_platform_data) {
++				.display = {
++					.buswidth = 8,
++					.backlight = 1,
++				},
++				.bgr = true,
++				.gpios = (const struct fbtft_gpio []) {
++					{ "dc", 77 },
++					{ "led", 13 },
++					{},
++				},
++			}
++		}
++	}, {
+ 		.name = "admatec_c-berry28",
+ 		.spi = &(struct spi_board_info) {
+ 			.modalias = "fb_st7789v",

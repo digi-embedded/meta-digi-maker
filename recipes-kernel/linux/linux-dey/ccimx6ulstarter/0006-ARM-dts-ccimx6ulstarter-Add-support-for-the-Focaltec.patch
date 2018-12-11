@@ -1,0 +1,80 @@
+From 4734536cd7870f0c7ef96dc0b2bf6fd067504ab2 Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Mon, 17 Dec 2018 16:40:30 +0100
+Subject: [PATCH] ARM: dts: ccimx6ulstarter: Add support for the Focaltech
+ FT6236 cap touch
+
+This is used in some of Adafruit's displays.
+
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts |  4 ++++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    |  4 ++++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi      | 17 +++++++++++++++++
+ 3 files changed, 25 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+index f2a284befd90..f389ae0fac21 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+@@ -54,6 +54,10 @@
+ 	status = "okay";
+ };
+ 
++&ft6236 {
++	status = "okay";
++};
++
+ /* CAN1 (Raspberry PI Expansion header) */
+ &can1 {
+ 	status = "disabled";
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+index f2a284befd90..302fbe64dc12 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+@@ -54,6 +54,10 @@
+ 	status = "okay";
+ };
+ 
++&ft6236 {
++        status = "okay";
++};
++
+ /* CAN1 (Raspberry PI Expansion header) */
+ &can1 {
+ 	status = "disabled";
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+index 382c21ed8cf2..939e197ae074 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+@@ -58,6 +58,17 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c2>;
+ 	status = "disabled";
++
++	ft6236: ft6236@38 {
++		compatible = "focaltech,ft6236";
++		reg = <0x38>;
++		pinctrl-0 = <&pinctrl_focaltech_touch>;
++		interrupt-parent = <&gpio3>;
++		interrupts = <12 IRQ_TYPE_EDGE_RISING>;
++		touchscreen-size-x = <240>;
++		touchscreen-size-y = <320>;
++		status = "disabled";
++	};
+ };
+ 
+ &pwm1 {
+@@ -176,6 +187,12 @@
+ 			>;
+ 		};
+ 
++		pinctrl_focaltech_touch: ft6236grp {
++			fsl,pins = <
++				MX6UL_PAD_LCD_DATA07__GPIO3_IO12       0xf030
++			>;
++		};
++
+ 		pinctrl_i2c2: i2c2grp {
+ 			fsl,pins = <
+ 				MX6UL_PAD_GPIO1_IO00__I2C2_SCL 0x4001b8b0

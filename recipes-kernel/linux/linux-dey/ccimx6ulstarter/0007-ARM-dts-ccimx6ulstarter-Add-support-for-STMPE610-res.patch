@@ -1,0 +1,130 @@
+From 3abd49a7495149c791aadc0ec93aeb0c2318c8dc Mon Sep 17 00:00:00 2001
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+Date: Tue, 18 Dec 2018 13:31:38 +0100
+Subject: [PATCH] ARM: dts: ccimx6ulstarter: Add support for STMPE610 resistive
+ touch
+
+This is a resistive touch controller present on some of the PiTFTP
+displays.
+
+According to the 3.5" LCD Hat schematics:
+https://learn.adafruit.com/assets/26348
+
+RPI pad      | Signal   |  CC6UL EH pin  |  CC6UL signal | GPIO nr
+------------------------------------------------------------------
+  GPIO24     | RT_INT   |    18          |   LCD_DATA07  |  76
+  SPI_CE1    | RT_CS    |    26          |   LCD_DATA09  |  78
+
+Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
+---
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts |  4 +++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    |  4 +++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts       |  4 +++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi      | 39 ++++++++++++++++++++--
+ 4 files changed, 49 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+index f389ae0fac21..186a894e679b 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
+@@ -81,6 +81,10 @@
+ //	digi,tamper-if-list = <0 1 2 3>;
+ //};
+ 
++&touch {
++	status = "okay";
++};
++
+ /* PWM1 (Raspberry PI Expansion header) */
+ &pwm1 {
+ 	status = "okay";
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+index 302fbe64dc12..f85b60409beb 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
+@@ -81,6 +81,10 @@
+ //	digi,tamper-if-list = <0 1 2 3>;
+ //};
+ 
++&touch {
++	status = "okay";
++};
++
+ /* PWM1 (Raspberry PI Expansion header) */
+ &pwm1 {
+ 	status = "okay";
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
+index 07653eb99ba9..15feb62f8409 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
+@@ -77,6 +77,10 @@
+ //	digi,tamper-if-list = <0 1 2 3>;
+ //};
+ 
++&touch {
++	status = "okay";
++};
++
+ /* PWM1 (Raspberry PI Expansion header) */
+ &pwm1 {
+ 	status = "okay";
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+index 939e197ae074..ab11b26faddc 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
+@@ -17,11 +17,39 @@
+ 
+ /* ECSPI3 (Raspberry PI Expansion header) */
+ &ecspi3 {
+-	fsl,spi-num-chipselects = <1>;
+-	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
++	fsl,spi-num-chipselects = <2>;
++	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>,
++		   <&gpio3 14 GPIO_ACTIVE_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ecspi3_master>;
+ 	status = "disabled";
++
++	touch: pitft_ts@1 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		compatible = "st,stmpe610";
++		reg = <1>;
++		pinctrl-0 = <&pinctrl_stmpe_touch>;
++
++		spi-max-frequency = <500000>;
++		interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
++		interrupt-parent = <&gpio3>;
++		interrupt-controller;
++		status = "disabled";
++
++		stmpe_touchscreen {
++			compatible = "st,stmpe-ts";
++			st,sample-time = <4>;
++			st,mod-12b = <1>;
++			st,ref-sel = <0>;
++			st,adc-freq = <2>;
++			st,ave-ctrl = <3>;
++			st,touch-det-delay = <4>;
++			st,settling = <2>;
++			st,fraction-z = <7>;
++			st,i-drive = <0>;
++		};
++	};
+ };
+ 
+ &fec1 {
+@@ -206,6 +234,13 @@
+ 			>;
+ 		};
+ 
++		pinctrl_stmpe_touch: stmpe610grp {
++			fsl,pins = <
++				MX6UL_PAD_LCD_DATA09__GPIO3_IO14 	0xf030
++				MX6UL_PAD_LCD_DATA07__GPIO3_IO12 	0xf030
++			>;
++		};
++
+ 		pinctrl_uart4: uart4grp {
+ 			fsl,pins = <
+ 				MX6UL_PAD_LCD_CLK__UART4_DCE_TX		0x1b0b1
