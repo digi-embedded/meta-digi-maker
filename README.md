@@ -121,36 +121,36 @@ For more information refer to:
 
 To enable the Adafruit 2.2" ILI9340 based PiTFTP Hat support for Digi Hardware, add:
 
-   ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_22"
+    ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_22"
 
 to the project's configuration file and build the image.
 
 The display should go dark once the system finishes booting. To test it type
 the following at the Linux shell:
 
-# fbsplash -s /usr/share/pixmaps/cc6ul_320x240.ppm
+    # fbsplash -s /usr/share/pixmaps/cc6ul_320x240.ppm
 
 To enable the Adafruit 2.8" ILI9341 based PiTFTP Hat support for Digi Hardware, add:
 
-   ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_28"
+    ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_28"
 
 to the project's configuration file and build the image.
 
 The display should go dark once the system finishes booting. To test it type
 the following at the Linux shell:
 
-# fbsplash -s /usr/share/pixmaps/cc6ul_320x240.ppm
+    # fbsplash -s /usr/share/pixmaps/cc6ul_320x240.ppm
 
 To enable the Adafruit 3.5" HX8357D based PiTFTP Hat support for Digi Hardware, add:
 
-   ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_35"
+    ADAFRUIT_PITFT_DISPLAY = "ADAFRUIT_PITFT_35"
 
 to the project's configuration file and build the image.
 
 The display goes dark once the system finishes booting. To test it type
 the following at the Linux shell:
 
-# fbsplash -s /usr/share/pixmaps/cc6ul_320x480.ppm
+    # fbsplash -s /usr/share/pixmaps/cc6ul_320x480.ppm
 
 #### Touch support
 
@@ -159,23 +159,23 @@ The Adafruit PiTFT LCDs come with either a resistive or capacitive touch.
 To enable capacitive (FT6236) touch support add the following to your configuration
 file:
 
-ADAFRUIT_PITFT_CAP_TOUCH = "1"
+    ADAFRUIT_PITFT_CAP_TOUCH = "1"
 
 To enable resistive touch support (STMPE610) add the following to your configuration
 file:
 
-ADAFRUIT_PITFT_RES_TOUCH = "1"
+    ADAFRUIT_PITFT_RES_TOUCH = "1"
 
 Note that both touch controllers cannot be configured simultaneously as they
 share resources.
 
 To calibrate the resistive touch.
 
-# TSLIB_FBDEVICE=/dev/fb0 TSLIB_TSDEVICE=/dev/input/touchscreen ts_calibrate
+    # TSLIB_FBDEVICE=/dev/fb0 TSLIB_TSDEVICE=/dev/input/touchscreen ts_calibrate
 
 To test the resistive touch:
 
-# TSLIB_FBDEVICE=/dev/fb0 TSLIB_TSDEVICE=/dev/input/touchscreen ts_test
+    # TSLIB_FBDEVICE=/dev/fb0 TSLIB_TSDEVICE=/dev/input/touchscreen ts_test
 
 License
 -------
