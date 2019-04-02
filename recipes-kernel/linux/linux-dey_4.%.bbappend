@@ -10,9 +10,9 @@ ADAFRUIT_PIFTF_ROTATION ?= "270"
 ADAFRUIT_PIFTF_BUSNUM ?= "2"
 
 SRC_URI_append_ccimx6ulstarter = " \
-    ${@base_conditional('RPI_SENSEHAT_ENABLED', '1', ' file://0001-ARM-dts-ccimx6ulstarter-add-support-for-Sense-HAT.patch', '', d)} \
-    ${@base_conditional('ADAFRUIT_PITFT_ENABLED', '1', 'file://0001-ARM-dts-ccimx6ulstarter-Add-support-for-Adafruit-PiT.patch', '', d)} \
-    ${@base_conditional('ADAFRUIT_PITFT_ENABLED', '1', 'file://0002-ARM-dts-ccimx6ulstarter-Disable-CAN1-for-Adafruit-di.patch', '', d)} \
+    ${@oe.utils.conditional('RPI_SENSEHAT_ENABLED', '1', ' file://0001-ARM-dts-ccimx6ulstarter-add-support-for-Sense-HAT.patch', '', d)} \
+    ${@oe.utils.conditional('ADAFRUIT_PITFT_ENABLED', '1', 'file://0001-ARM-dts-ccimx6ulstarter-Add-support-for-Adafruit-PiT.patch', '', d)} \
+    ${@oe.utils.conditional('ADAFRUIT_PITFT_ENABLED', '1', 'file://0002-ARM-dts-ccimx6ulstarter-Disable-CAN1-for-Adafruit-di.patch', '', d)} \
     ${@bb.utils.contains('ADAFRUIT_PITFT_DISPLAY', 'ADAFRUIT_PITFT_35', 'file://0003-fbtft_device-Add-support-for-the-Adafruit-HX8357D-3..patch', '', d)} \
     ${@bb.utils.contains('ADAFRUIT_PITFT_DISPLAY', 'ADAFRUIT_PITFT_22', 'file://0004-fbtft_device-Add-support-for-the-Adafruit-ILI9340-2..patch', '', d)} \
     ${@bb.utils.contains('ADAFRUIT_PITFT_DISPLAY', 'ADAFRUIT_PITFT_28', 'file://0005-fbtft_device-Add-support-for-the-Adafruit-ILI9341-2..patch', '', d)} \
@@ -21,10 +21,10 @@ SRC_URI_append_ccimx6ulstarter = " \
 "
 
 KERNEL_MODULE_AUTOLOAD += " \
-    ${@base_conditional('ADAFRUIT_PITFT_ENABLED', '1', 'fbtft_device', '', d)} \
+    ${@oe.utils.conditional('ADAFRUIT_PITFT_ENABLED', '1', 'fbtft_device', '', d)} \
 "
 KERNEL_MODULE_PROBECONF += " \
-    ${@base_conditional('ADAFRUIT_PITFT_ENABLED', '1', 'fbtft_device', '', d)} \
+    ${@oe.utils.conditional('ADAFRUIT_PITFT_ENABLED', '1', 'fbtft_device', '', d)} \
 "
 module_conf_fbtft_device = " \
     ${@bb.utils.contains('ADAFRUIT_PITFT_DISPLAY', 'ADAFRUIT_PITFT_22', 'options fbtft_device name=adafruit22a_${MACHINE} busnum=${ADAFRUIT_PIFTF_BUSNUM} rotate=${ADAFRUIT_PIFTF_ROTATION}', '', d)} \
