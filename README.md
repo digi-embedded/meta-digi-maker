@@ -32,7 +32,7 @@ Installation
 
     The following git revisions were validated by Digi:
 
-      * meta-raspberrypi: c71d79efc5a06a0c896c278c94f5b14413bb4d69
+      * meta-raspberrypi: 4e5be97d75668804694412f9b86e9291edb38b9d
 
 
 Create and build a project
