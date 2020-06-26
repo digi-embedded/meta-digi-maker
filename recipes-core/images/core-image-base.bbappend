@@ -1,6 +1,6 @@
 # Copyright (C) 2017 Digi International Inc.
 
-RPI_SENSEHAT_PACKAGES ?= "python-evdev python-sense-hat-examples"
+RPI_SENSEHAT_PACKAGES ?= "python-evdev python3-sense-hat-examples"
 
 ADAFRUIT_PITFT_ENABLED = "${@bb.utils.contains_any('ADAFRUIT_PITFT_DISPLAY', [ 'ADAFRUIT_PITFT_22' , 'ADAFRUIT_PITFT_28' , 'ADAFRUIT_PITFT_35' ], '1', '', d)}"
 
