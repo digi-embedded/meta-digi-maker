@@ -17,32 +17,16 @@ RPI pad      | Signal   |  CC6UL EH pin  |  CC6UL signal | GPIO nr
 
 Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
 ---
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts |  4 +++
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    |  4 +++
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts       |  4 +++
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi      | 39 ++++++++++++++++++++--
- 4 files changed, 49 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    |  4 ++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts       |  4 ++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi      | 39 ++++++++++++++++++-
+ 3 files changed, 45 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-index f389ae0fac21..186a894e679b 100644
---- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-+++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-@@ -81,6 +81,10 @@
- //	digi,tamper-if-list = <0 1 2 3>;
- //};
- 
-+&touch {
-+	status = "okay";
-+};
-+
- /* PWM1 (Raspberry PI Expansion header) */
- &pwm1 {
- 	status = "okay";
 diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
-index 302fbe64dc12..f85b60409beb 100644
+index be8c93db5738..385b4866f64f 100644
 --- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
 +++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
-@@ -81,6 +81,10 @@
+@@ -85,6 +85,10 @@
  //	digi,tamper-if-list = <0 1 2 3>;
  //};
  
@@ -54,10 +38,10 @@ index 302fbe64dc12..f85b60409beb 100644
  &pwm1 {
  	status = "okay";
 diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
-index 07653eb99ba9..15feb62f8409 100644
+index 2c0286d834a6..5d28541a9bbf 100644
 --- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
 +++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dts
-@@ -77,6 +77,10 @@
+@@ -81,6 +81,10 @@
  //	digi,tamper-if-list = <0 1 2 3>;
  //};
  
@@ -69,18 +53,18 @@ index 07653eb99ba9..15feb62f8409 100644
  &pwm1 {
  	status = "okay";
 diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
-index 939e197ae074..ab11b26faddc 100644
+index a8cab6c733f0..13a1e862ea3c 100644
 --- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
 +++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
 @@ -17,11 +17,39 @@
  
  /* ECSPI3 (Raspberry PI Expansion header) */
  &ecspi3 {
--	fsl,spi-num-chipselects = <1>;
+-	num-cs = <1>;
 -	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
-+	fsl,spi-num-chipselects = <2>;
++	num-cs = <2>;
 +	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>,
-+		   <&gpio3 14 GPIO_ACTIVE_LOW>;
++			   <&gpio3 14 GPIO_ACTIVE_LOW>;
  	pinctrl-names = "default";
  	pinctrl-0 = <&pinctrl_ecspi3_master>;
  	status = "disabled";
@@ -114,7 +98,7 @@ index 939e197ae074..ab11b26faddc 100644
  };
  
  &fec1 {
-@@ -206,6 +234,13 @@
+@@ -225,6 +253,13 @@
  			>;
  		};
  

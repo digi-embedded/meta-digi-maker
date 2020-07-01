@@ -8,31 +8,15 @@ This is used in some of Adafruit's displays.
 
 Signed-off-by: Alex Gonzalez <alex.gonzalez@digi.com>
 ---
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts |  4 ++++
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts    |  4 ++++
- arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi      | 17 +++++++++++++++++
- 3 files changed, 25 insertions(+)
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts |  4 ++++
+ arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi   | 17 +++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-index f2a284b..302fbe6 100644
---- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-+++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-id129.dts
-@@ -54,6 +54,10 @@
- 	status = "okay";
- };
- 
-+&ft6236 {
-+        status = "okay";
-+};
-+
- /* CAN1 (Raspberry PI Expansion header) */
- &can1 {
- 	status = "disabled";
 diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
-index f2a284b..302fbe6 100644
+index 345e0274020e..be8c93db5738 100644
 --- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
 +++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter-wb.dts
-@@ -54,6 +54,10 @@
+@@ -50,6 +50,10 @@
  	status = "okay";
  };
  
@@ -44,7 +28,7 @@ index f2a284b..302fbe6 100644
  &can1 {
  	status = "disabled";
 diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
-index 9fb5439..a29f910 100644
+index e191c94d3cee..a8cab6c733f0 100644
 --- a/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
 +++ b/arch/arm/boot/dts/imx6ul-ccimx6ulstarter.dtsi
 @@ -61,6 +61,17 @@
@@ -65,7 +49,7 @@ index 9fb5439..a29f910 100644
  };
  
  &pwm1 {
-@@ -179,6 +190,12 @@
+@@ -188,6 +199,12 @@
  			>;
  		};
  
